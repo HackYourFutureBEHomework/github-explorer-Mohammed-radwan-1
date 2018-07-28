@@ -74,3 +74,22 @@ h5,a{
     border-radius: 0.5em;
 
 }
+
+.contributor-avatar{
+border-radius: 3px;
+margin-right: 16px;
+
+}
+.contributor-item {
+    border-bottom: solid 1px rgb(0, 0, 0, 12%);
+    padding: 16px;
+    display: flex;
+    /* flex-direction: row; */
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+}
+.contributor-badge{
+  align-items: flex-end;
+  color: rgb(23, 22, 24);
+}
