@@ -63,10 +63,7 @@ function main(url) {
 
     $options.addEventListener('change', (e) => {
       $leftSide.innerHTML = '';
-
-      // console.log($options.value);
       if ($options.value == -1) {
-        $leftSide.innerHTML = '';
         $allInfo.setAttribute('style', 'display:none;');
 
       } else {
@@ -83,7 +80,7 @@ function main(url) {
         const $forksValue = createAndAppend('td', $tr1, { html: "<h5>" + data[$options.value].forks + "</h5>", class: 'forks' });
         const $tr2 = createAndAppend('tr', $tbody);
         const $updated = createAndAppend('td', $tr2, { html: '<h4>Updated:</h4>' });
-        const $updatedDate = createAndAppend('td', $tr2, { html: "<h5>" + new Date(data[$options.value].updated_at) + "</h5>" });
+        const $updatedDate = createAndAppend('td', $tr2, { html: "<h5>" + data[$options.value].updated_at.replace(/T.*Z/, "") + "</h5>" });
         const $tr3 = createAndAppend('tr', $tbody);
         if (data[$options.value].description !== null) {
           const $description = createAndAppend('td', $tr3, { html: '<h4>Description:</h4>' });
@@ -105,6 +102,14 @@ function main(url) {
     });
 
     createAndAppend('option', $options, { html: 'Seclet a repository name...', value: '-1' });
+    data.sort((a, b) => (a.name).localeCompare(b.name));
+    // data.sort(function (a, b) {
+    //   let x = a.name.toLowerCase();
+    //   let y = b.name.toLowerCase();
+    //   if (x < y) { return -1; }
+    //   if (x > y) { return 1; }
+    //   return 0;
+    // });
     for (item of data) {
       createAndAppend('option', $options, { html: item.name, value: index });
       index = index + 1;
