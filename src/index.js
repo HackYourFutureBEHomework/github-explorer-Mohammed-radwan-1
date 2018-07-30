@@ -32,7 +32,6 @@ function createAndAppend(name, parent, options = {}) {
 }
 
 function main(url) {
-  const contributors = 'https://api.github.com/repos/HackYourFuture/AngularJS/contributors';
 
   fetchJSON(url, (err, data) => {
     if (err) {
@@ -47,55 +46,58 @@ function main(url) {
       const $allInfo = createAndAppend('div', root, { class: 'all-info' });
       const $leftSide = createAndAppend('div', $allInfo, { class: 'left-side' });
       const $rightSide = createAndAppend('div', $allInfo, { class: 'right-side' });
-      const $repository = createAndAppend('p', $leftSide, { class: 'repo-Name' });
-      const $forks = createAndAppend('p', $leftSide, { class: 'forks' });
-      const $updated = createAndAppend('p', $leftSide, { class: 'updated' });
-      const $description = createAndAppend('p', $leftSide, { class: 'description' });
-      const $contribute = createAndAppend('p', $rightSide, { html: '</h5><center>Contributions<center></h5>', class: 'contHeader' });
+      const $contribute = createAndAppend('p', $rightSide, { class: 'contHeader' });
       const $contributorsDiv = createAndAppend("div", $rightSide, { className: "contributors" });
       const $contributorsList = createAndAppend("ul", $contributorsDiv, { className: "contributors-list" });
 
-      //Initialize the first option  I'll find  a solution later !   :)
-      $repository.innerHTML = '<h4>Repository:</h4>' + "<a>" + data[0].name + "</a>";
-      document.querySelector('a').setAttribute("href", "<h5>" + data[0].html_url + "</h5>");
-      document.querySelector('a').setAttribute("target", "_blank");
-      $forks.innerHTML = '<h4>Forks: </h4>' + "<h5>" + data[0].forks + "</h5>";
-      $updated.innerHTML = '<h4>Updated: </h4>' + "<h5>" + new Date(data[0].updated_at) + "</h5>";
-      if (data[0].description === null)
-        $description.innerHTML = '';
-      else
-        $description.innerHTML = '<h4>Description:</h4>' + "<h5>" + data[0].description + "</h5>";
-
       $options.addEventListener('change', (e) => {
-        $repository.innerHTML = '<h4>Repository:  </h4>' + "<a>" + data[$options.value].name + "</a>";
-        document.querySelector('a').setAttribute("href", data[$options.value].html_url);
-        document.querySelector('a').setAttribute("target", "_blank");
-        $forks.innerHTML = '<h4>Forks: </h4>' + "<h5>" + data[$options.value].forks + "<h5>";
-        $updated.innerHTML = '<h4>Updated:  </h4>' + "<h5>" + new Date(data[$options.value].updated_at) + "<h5>";
-        if (data[$options.value].description === null)
-          $description.innerHTML = '';
-        else
-          $description.innerHTML = '<h4>Description : </h4>' + "<h5>" + data[$options.value].description + "<h5>";
+        $leftSide.innerHTML = '';
 
-        const contributors = data[$options.value].contributors_url;
-        // console.log(contributors);
-        fetchJSON(contributors, (err, contData) => {
-          if (err) {
-            createAndAppend('div', root, { html: err.message, class: 'alert-error' });
-          } else {
-            $contributorsList.innerHTML = "";
+        console.log($options.value);
+        if ($options.value == -1) {
+          $leftSide.innerHTML = '';
 
-            // console.log[]
-            for (contributor of contData) {
-              const $contributorItem = createAndAppend("li", $contributorsList, { class: "contributor-item" });
-              const $contributoravatar = createAndAppend('img', $contributorItem, { class: "contributor-avatar", src: contributor.avatar_url, width: 50 });
-              const $contributorLogin = createAndAppend("p", $contributorItem, { class: "contributor-login", html: contributor.login });
-              const $contributorbadge = createAndAppend("p", $contributorItem, { class: "contributor-badge", html: contributor.contributions });
-            }
-
+        } else {
+          const $table = createAndAppend('table', $leftSide);
+          const $tbody = createAndAppend('tbody', $table);
+          const $tr = createAndAppend('tr', $tbody);
+          const $repository = createAndAppend('td', $tr, { html: '<h4>Repository:</h4>' });
+          const $repositoryName = createAndAppend('td', $tr);
+          const $repositoryUrl = createAndAppend('a', $repositoryName, { html: data[$options.value].name, href: data[$options.value].html_url, target: "_blank" });
+          const $tr1 = createAndAppend('tr', $tbody);
+          const $forks = createAndAppend('td', $tr1, { html: '<h4>Forks:</h4>' });
+          const $forksValue = createAndAppend('td', $tr1, { html: "<h5>" + data[$options.value].forks + "</h5>", class: 'forks' });
+          const $tr2 = createAndAppend('tr', $tbody);
+          const $updated = createAndAppend('td', $tr2, { html: '<h4>Updated:</h4>' });
+          const $updatedDate = createAndAppend('td', $tr2, { html: "<h5>" + new Date(data[$options.value].updated_at) + "</h5>" });
+          const $tr3 = createAndAppend('tr', $tbody);
+          if (data[$options.value].description !== null) {
+            const $description = createAndAppend('td', $tr3, { html: '<h4>Description:</h4>' });
+            const $descriptionDetails = createAndAppend('td', $tr3, { html: "<h5>" + data[$options.value].description + "</h5>" });
           }
-        });
+
+          const contributors = data[$options.value].contributors_url;
+          fetchJSON(contributors, (err, contData) => {
+            if (err) {
+              createAndAppend('div', root, { html: err.message, class: 'alert-error' });
+            } else {
+              $contributorsList.innerHTML = "";
+
+              for (contributor of contData) {
+                $contribute.innerHTML = '</h5><center>Contributions<center></h5>';
+                const $contributorItem = createAndAppend("li", $contributorsList, { class: "contributor-item" });
+                const $contributoravatar = createAndAppend('img', $contributorItem, { class: "contributor-avatar", src: contributor.avatar_url, width: 50 });
+                const $contributorLogin = createAndAppend("p", $contributorItem, { class: "contributor-login", html: contributor.login });
+                const $contributorbadge = createAndAppend("p", $contributorItem, { class: "contributor-badge", html: contributor.contributions });
+              }
+
+            }
+          });
+        }
       });
+
+      createAndAppend('option', $options, { html: 'Seclet a repository name...', value: '-1' });
+
       data.forEach(t => {
         createAndAppend('option', $options, { html: t.name, value: index })
         index = index + 1;
@@ -105,8 +107,7 @@ function main(url) {
 }
 const HYF_REPOS_URL = 'https://api.github.com/orgs/HackYourFuture/repos?per_page=100';
 
-// document.querySelector('select').addEventListener('change', main(HYF_REPOS_URL));
-// const contributors = 'https://api.github.com/repos/HackYourFuture/AngularJS/contributors';
+
 
 window.onload = () => main(HYF_REPOS_URL);
 
