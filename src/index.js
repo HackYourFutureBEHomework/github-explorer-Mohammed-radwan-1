@@ -58,8 +58,8 @@ function main(url) {
     const $leftSide = createAndAppend('div', $allInfo, { class: 'left-side' });
     const $rightSide = createAndAppend('div', $allInfo, { class: 'right-side' });
     const $contribute = createAndAppend('p', $rightSide, { class: 'contHeader' });
-    const $contributorsDiv = createAndAppend("div", $rightSide, { className: "contributors" });
-    const $contributorsList = createAndAppend("ul", $contributorsDiv, { className: "contributors-list" });
+    const $contributorsDiv = createAndAppend("div", $rightSide, { class: "contributors" });
+    const $contributorsList = createAndAppend("ul", $contributorsDiv, { class: "contributors-list" });
 
     $options.addEventListener('change', (e) => {
       $leftSide.innerHTML = '';
@@ -67,7 +67,7 @@ function main(url) {
         $allInfo.setAttribute('style', 'display:none;');
 
       } else {
-        $allInfo.setAttribute('style', 'display:;');
+        $allInfo.setAttribute('style', 'display:flex;');
 
         const $table = createAndAppend('table', $leftSide);
         const $tbody = createAndAppend('tbody', $table);
@@ -117,9 +117,6 @@ function main(url) {
   }).catch(err => document.getElementById('root').innerHTML = err);
 }
 const HYF_REPOS_URL = 'https://api.github.com/orgs/HackYourFuture/repos?per_page=100';
-
-// fetchJSON(HYF_REPOS_URL)
-//   .then(data => console.log(data));
 
 
 window.onload = () => main(HYF_REPOS_URL);

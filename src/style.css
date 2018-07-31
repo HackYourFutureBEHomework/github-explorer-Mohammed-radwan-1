@@ -4,35 +4,10 @@
 body{
     margin-right: auto;
     margin-left: auto;
-    width: 50%; 
+    width: 70%; 
     background-color: beige;
     color: rgb(92, 92, 88);
     font-size: 11px;
-}
-.alert-error {
-    color: red;
-}
-.nameClass{
-    color: red;
-}
-.repo-selector{
-
-}
-pre{
-    display: inline;
-}
-.header{
-    display: flex;
-    align-content: center;
-    background-color: blue;
-    padding: 0.5rem  1rem;
-    align-items: center;
-    color: white;
-    margin-bottom: 1rem;
-}
-select{
-height: 2rem;
-margin-left: 0.8rem;
 }
 h4{
     display: inline;
@@ -40,47 +15,139 @@ h4{
     font-size: 14px;
     
 }
+select{
+    height: 2rem;
+    margin-left: 0.8rem;
+}
+.contributor-avatar{
+    border-radius: 3px;
+    margin-right: 16px;
+
+}
+td:nth-child(odd){
+    width: 33%;
+}
+/* td:nth-child(even){
+
+} */
+table{
+    width: 100%;
+}
+.contributors-list{
+    padding: 0;
+}
+@media only screen and (min-width: 652px) {
+    .all-info{
+        display: flex;
+        /* flex: 50% */
+    }
+    .left-side{
+        display: flex;
+        flex-direction: column;
+        flex: 50%;
+        /* border: red 1px solid; */
+        padding: 0.7rem;
+        background-color: rgb(248, 248, 248);  
+        margin-right: 1rem;
+        box-shadow: 0.2rem 0.3rem 0.4rem gray; 
+        border-radius: 0.5em;
+         
+    
+    
+    }
+    .right-side{
+        display: flex;
+        flex-direction: column;
+        flex: 50%;
+        background-color: rgb(248, 248, 248);  
+        padding: 0.7rem;
+        box-shadow: 0.2rem 0.3rem 0.4rem gray; 
+        border-radius: 0.5em;
+    
+    }
+    .header{
+        display: flex;
+        align-content: center;
+        background-color: blue;
+        padding: 0.5rem  1rem;
+        align-items: center;
+        color: white;
+        margin-bottom: 1rem;
+    }
+}
+@media only screen and (max-width: 652px) {
+    .all-info{
+        display: flex;
+        /* flex: 50% */
+        flex-direction: column;
+    }
+    .left-side{
+        display: flex;
+        flex-direction: column;
+        flex: 100%;
+        /* border: red 1px solid; */
+        padding: 0.7rem;
+        background-color: rgb(248, 248, 248);  
+        box-shadow: 0.2rem 0.3rem 0.4rem gray; 
+        border-radius: 0.5em;
+         margin-bottom: 1rem;
+    
+    
+    }
+
+    .right-side{
+        display: flex;
+        flex-direction: column;
+        flex: 100%;
+        background-color: rgb(248, 248, 248);  
+        padding: 0.7rem;
+        box-shadow: 0.2rem 0.3rem 0.4rem gray; 
+        border-radius: 0.5em;
+    
+    }
+    .header{
+        display: flex;
+        align-content: center;
+        background-color: blue;
+        padding: 0.5rem  1rem;
+        align-items: center;
+        color: white;
+        margin-bottom: 1rem;
+    }
+    h4{
+        font-size: 0.6rem;
+        display: inline;
+        font-family: sans-serif;
+    }
+    select{
+        width: 50%;
+    }
+    .contributor-avatar{
+        border-radius: 3px;
+        margin-right: 0;
+    
+    }
+    
+}
+.alert-error {
+    color: red;
+}
+.nameClass{
+    color: red;
+}
+
+
+
 p{display: inline;}
 h5,a{
-    /* color: rgb(26, 24, 24); */
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     display: inline;
     font-family: sans-serif;
 }
-.all-info{
-    display: flex;
-    /* flex: 50% */
-}
-.left-side{
-    display: flex;
-    flex-direction: column;
-    flex: 50%;
-    /* border: red 1px solid; */
-    padding: 0.7rem;
-    background-color: rgb(248, 248, 248);  
-    margin-right: 1rem;
-    box-shadow: 0.2rem 0.3rem 0.4rem gray; 
-    border-radius: 0.5em;
-     
 
 
-}
-.right-side{
-    display: flex;
-    flex-direction: column;
-    flex: 50%;
-    background-color: rgb(248, 248, 248);  
-    padding: 0.7rem;
-    box-shadow: 0.2rem 0.3rem 0.4rem gray; 
-    border-radius: 0.5em;
 
-}
 
-.contributor-avatar{
-border-radius: 3px;
-margin-right: 16px;
-
-}
 .contributor-item {
     border-bottom: solid 1px rgb(0, 0, 0, 12%);
     padding: 16px;
@@ -91,6 +158,10 @@ margin-right: 16px;
     justify-content: space-between;
 }
 .contributor-badge{
-  align-items: flex-end;
-  color: rgb(23, 22, 24);
+    align-items: flex-end;
+    color: rgb(23, 22, 24);
+}
+tr {
+    display: flex;
+    /* justify-content: space-between; */
 }
