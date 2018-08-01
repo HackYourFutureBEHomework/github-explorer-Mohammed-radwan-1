@@ -27,9 +27,7 @@ select{
 td:nth-child(odd){
     width: 33%;
 }
-/* td:nth-child(even){
 
-} */
 table{
     width: 100%;
 }
@@ -39,21 +37,16 @@ table{
 @media only screen and (min-width: 652px) {
     .all-info{
         display: flex;
-        /* flex: 50% */
     }
     .left-side{
         display: flex;
         flex-direction: column;
         flex: 50%;
-        /* border: red 1px solid; */
         padding: 0.7rem;
         background-color: rgb(248, 248, 248);  
         margin-right: 1rem;
         box-shadow: 0.2rem 0.3rem 0.4rem gray; 
         border-radius: 0.5em;
-         
-    
-    
     }
     .right-side{
         display: flex;
@@ -78,23 +71,18 @@ table{
 @media only screen and (max-width: 652px) {
     .all-info{
         display: flex;
-        /* flex: 50% */
         flex-direction: column;
     }
     .left-side{
         display: flex;
         flex-direction: column;
         flex: 100%;
-        /* border: red 1px solid; */
         padding: 0.7rem;
         background-color: rgb(248, 248, 248);  
         box-shadow: 0.2rem 0.3rem 0.4rem gray; 
         border-radius: 0.5em;
          margin-bottom: 1rem;
-    
-    
     }
-
     .right-side{
         display: flex;
         flex-direction: column;
@@ -131,31 +119,40 @@ table{
 }
 .alert-error {
     color: red;
+    font-size: 3rem;
+    text-align: center;
+
 }
-.nameClass{
-    color: red;
-}
-
-
-
 p{display: inline;}
 h5,a{
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     display: inline;
     font-family: sans-serif;
+    text-decoration: none;
+    color: rgb(92, 92, 88);
+    
 }
-
-
-
-
-.contributor-item {
-    border-bottom: solid 1px rgb(0, 0, 0, 12%);
+tr td a:hover{
+    color: rgb(46, 44, 44);
+    font-size: 16px;
+}
+.contributor-item{
+    list-style: none;
+}
+.contributor-item:hover{
+    cursor: pointer;
+    background-color: rgb(240, 234, 234);
+}
+ 
+.contributorAnchor{
+    border-top: solid 1px rgb(0, 0, 0, 12%);
     padding: 16px;
     display: flex;
-    /* flex-direction: row; */
     align-items: center;
-    cursor: pointer;
     justify-content: space-between;
+    text-decoration: none;
+    color: rgb(92, 92, 88);
+    font-size: 11px;
 }
 .contributor-badge{
     align-items: flex-end;
@@ -163,5 +160,4 @@ h5,a{
 }
 tr {
     display: flex;
-    /* justify-content: space-between; */
 }

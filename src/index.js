@@ -1,21 +1,6 @@
 
-let index = 0, i = 0;
-// let ContData = [];
+let index = 0;
 
-// function fetchJSON(url, cb) {
-//   const xhr = new XMLHttpRequest();
-//   xhr.open('GET', url);
-//   xhr.responseType = 'json';
-//   xhr.onload = () => {
-//     if (xhr.status < 400) {
-//       cb(null, xhr.response);
-//     } else {
-//       cb(new Error(`Network error: ${xhr.status} - ${xhr.statusText}`));
-//     }
-//   };
-//   xhr.onerror = () => cb(new Error('Network request failed'));
-//   xhr.send();
-// }
 function fetchJSON(url) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
@@ -50,7 +35,7 @@ function main(url) {
 
   fetchJSON(url).then(JSON.parse).then(data => {
 
-    const root = document.getElementById('root');
+    
     const $header = createAndAppend('header', root, { class: 'header' });
     const $HyfText = createAndAppend('p', $header, { html: 'HYF Repositories' });
     const $options = createAndAppend('select', $header, { class: 'select' });
@@ -61,6 +46,13 @@ function main(url) {
     const $contributorsDiv = createAndAppend("div", $rightSide, { class: "contributors" });
     const $contributorsList = createAndAppend("ul", $contributorsDiv, { class: "contributors-list" });
 
+    createAndAppend('option', $options, { html: 'Seclet a repository name...', value: '-1' });
+
+    data.sort((a, b) => (a.name).localeCompare(b.name));
+    for (item of data) {
+      createAndAppend('option', $options, { html: item.name, value: index });
+      index++;
+    }
     $options.addEventListener('change', (e) => {
       $leftSide.innerHTML = '';
       if ($options.value == -1) {
@@ -68,7 +60,6 @@ function main(url) {
 
       } else {
         $allInfo.setAttribute('style', 'display:flex;');
-
         const $table = createAndAppend('table', $leftSide);
         const $tbody = createAndAppend('tbody', $table);
         const $tr = createAndAppend('tr', $tbody);
@@ -93,30 +84,21 @@ function main(url) {
           for (contributor of contData) {
             $contribute.innerHTML = '</h5><center>Contributions<center></h5>';
             const $contributorItem = createAndAppend("li", $contributorsList, { class: "contributor-item" });
-            const $contributoravatar = createAndAppend('img', $contributorItem, { class: "contributor-avatar", src: contributor.avatar_url, width: 50 });
-            const $contributorLogin = createAndAppend("p", $contributorItem, { class: "contributor-login", html: contributor.login });
-            const $contributorbadge = createAndAppend("p", $contributorItem, { class: "contributor-badge", html: contributor.contributions });
+            const $contributorAnchor=createAndAppend('a',$contributorItem,{href:contributor.html_url ,class:"contributorAnchor"})
+            const $contributoravatar = createAndAppend('img', $contributorAnchor, { class: "contributor-avatar", src: contributor.avatar_url, width: 50 });
+            const $contributorLogin = createAndAppend("p", $contributorAnchor, { class: "contributor-login", html: contributor.login });
+            const $contributorbadge = createAndAppend("p", $contributorAnchor, { class: "contributor-badge", html: contributor.contributions });
           }
         });
       }
     });
 
-    createAndAppend('option', $options, { html: 'Seclet a repository name...', value: '-1' });
-    data.sort((a, b) => (a.name).localeCompare(b.name));
-    // data.sort(function (a, b) {
-    //   let x = a.name.toLowerCase();
-    //   let y = b.name.toLowerCase();
-    //   if (x < y) { return -1; }
-    //   if (x > y) { return 1; }
-    //   return 0;
-    // });
-    for (item of data) {
-      createAndAppend('option', $options, { html: item.name, value: index });
-      index = index + 1;
-    }
-  }).catch(err => document.getElementById('root').innerHTML = err);
+    
+  }).catch(err => $error.innerHTML = err);
 }
 const HYF_REPOS_URL = 'https://api.github.com/orgs/HackYourFuture/repos?per_page=100';
+const root = document.getElementById('root');
+const $error=createAndAppend('div',root,{class:"alert-error"});
 
 
 window.onload = () => main(HYF_REPOS_URL);
